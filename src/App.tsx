@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./bootstrap.min.css";
+import React, { Component } from "react";
+import Header from "./components/Header";
+import NewAppointment from "./components/NewAppointment";
+import { Appointment } from "./AppointmentType";
+type Props = {};
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type State = {};
+
+export default class App extends Component<Props, State> {
+  state = {
+    appointments: [],
+  };
+
+  createNewAppointment = (data: Appointment) => {
+    const appointments = [...this.state.appointments, data];
+    this.setState({ appointments });
+    console.log(data);
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <Header titulo="Veterinary Patient Administrator" />
+        <div className="row">
+          <div className="col-md-10 mx-auto">
+            <NewAppointment createNewAppointment={this.createNewAppointment} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;
