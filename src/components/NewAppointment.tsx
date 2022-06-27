@@ -74,7 +74,7 @@ export default class NewAppointment extends Component<Props, State> {
     return (
       <div className="card mt-5 py-6">
         <div className="card-body">
-          <h2 className="card-title text-center mb-5">Complete The Form</h2>
+          <h2 className="card-title text-center mb-5">New Appointment</h2>
           {error ? (
             <div className="alert alert-danger mt-2 mb-5 text-center">
               Please complete the form
