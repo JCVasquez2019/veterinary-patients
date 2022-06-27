@@ -1,4 +1,4 @@
-export type Appointment = {
+export type AppointmentType = {
   id: any
   pet: string
   owner: string

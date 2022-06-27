@@ -1,28 +1,30 @@
 import React, { Component } from "react";
-import { Appointment } from "../AppointmentType";
-import {v4 as uuidv4} from 'uuid';
+import { AppointmentType } from "../AppointmentType";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {
   createNewAppointment: any;
 };
 
 type State = {
-  appointment: Appointment;
+  appointment: AppointmentType;
   error: boolean;
 };
 
+const stateInitial = { 
+  appointment: {
+    id: "",
+    pet: "",
+    owner: "",
+    date: "",
+    hour: "",
+    symptoms: "",
+  },
+  error: false,
+}
+
 export default class NewAppointment extends Component<Props, State> {
-  state: State = {
-    appointment: {
-      id:"",
-      pet: "",
-      owner: "",
-      date: "",
-      hour: "",
-      symptoms: "",
-    },
-    error: false,
-  };
+  state: State = {...stateInitial}
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
@@ -60,17 +62,24 @@ export default class NewAppointment extends Component<Props, State> {
       });
       return;
     }
-    const newAppointment = {...this.state.appointment}
+    const newAppointment = { ...this.state.appointment };
     let myuuid = uuidv4();
-    newAppointment.id =myuuid;
+    newAppointment.id = myuuid;
     this.props.createNewAppointment(newAppointment);
+    this.setState({...stateInitial})
   };
 
   render() {
+    const { error } = this.state;
     return (
       <div className="card mt-5 py-6">
         <div className="card-body">
           <h2 className="card-title text-center mb-5">Complete The Form</h2>
+          {error ? (
+            <div className="alert alert-danger mt-2 mb-5 text-center">
+              Please complete the form
+            </div>
+          ) : null}
           <form onSubmit={this.handleSubmit}>
             <div className="form-group row">
               <label className="col-sm-4 col-lg-2 col-form-label">
